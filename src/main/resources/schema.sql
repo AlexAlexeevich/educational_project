@@ -32,9 +32,11 @@ CREATE TABLE IF NOT EXISTS User (
     phone 		 VARCHAR(25) 		    COMMENT 'Номер телефона',
     position	 VARCHAR(50) NOT NULL 	COMMENT 'Название',
     is_identified 	 BOOLEAN            COMMENT 'Идентификация',
-    office_id	 INTEGER NOT NULL	    COMMENT 'Уникальный идентификатор офиса'
+    office_id	 INTEGER NOT NULL	    COMMENT 'Уникальный идентификатор офиса',
+    citizenship_id INTEGER NOT NULL     COMMENT 'Уникальный идентификатор гражданства'
     );
 CREATE INDEX IX_User_office_id ON User(office_id);
+CREATE INDEX IX_User_citizenship_id ON User(citizenship_id);
 COMMENT ON TABLE Office IS 'Сотрудник';
 
 
@@ -43,7 +45,6 @@ CREATE TABLE IF NOT EXISTS Doc (
     name	 	 VARCHAR(100) 	 	    COMMENT 'Название документа',
     code		 VARCHAR(2)  	 	    COMMENT 'Код документа'
     );
-CREATE UNIQUE INDEX UX_Doc_code ON Doc(code);
 COMMENT ON TABLE Office IS 'Документ';
 
 
@@ -52,19 +53,16 @@ CREATE TABLE IF NOT EXISTS Country (
     name	 	 VARCHAR(100) 	 	    COMMENT 'Страна гражданства',
     code		 VARCHAR(3)  	 	    COMMENT 'Код гражданства'
     );
-CREATE UNIQUE INDEX UX_Country_code ON Country(code);
 COMMENT ON TABLE Office IS 'Гражданство';
 
 
 CREATE TABLE IF NOT EXISTS User_doc (
     id		     INTEGER 		        COMMENT 'Уникальный идентификатор' PRIMARY KEY,
-    doc_code	 VARCHAR(2)  		    COMMENT 'Код документа',
+    doc_id       INTEGER NOT NULL       COMMENT 'Уникальный идентификатор документа',
     doc_number	 VARCHAR(50)  		    COMMENT 'Номер документа',
-    doc_date	 DATE	  		        COMMENT 'Дата выдачи',
-    citizenship_code VARCHAR(3)		    COMMENT 'Код гражданства'
+    doc_date	 DATE	  		        COMMENT 'Дата выдачи'
     );
-CREATE INDEX IX_User_doc_doc_code ON User_doc(doc_code);
-CREATE INDEX IX_User_doc_citizenship_code ON User_doc(citizenship_code);
+CREATE INDEX IX_User_doc_doc_id ON User_doc(doc_id);
 COMMENT ON TABLE Office IS 'Документ сотрудника';
 
 
@@ -74,11 +72,11 @@ ALTER TABLE Office ADD FOREIGN KEY (org_id) REFERENCES Organization (id)
 ALTER TABLE User ADD FOREIGN KEY (office_id) REFERENCES Office (id)
     ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE User_doc ADD FOREIGN KEY (id) REFERENCES User_doc (id)
+ALTER TABLE User ADD  FOREIGN KEY (citizenship_id) REFERENCES Country (id)
     ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE User_doc ADD  FOREIGN KEY (doc_code) REFERENCES Doc (code)
+ALTER TABLE User_doc ADD FOREIGN KEY (id) REFERENCES User (id)
     ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE User_doc ADD  FOREIGN KEY (citizenship_code) REFERENCES Country (code)
+ALTER TABLE User_doc ADD  FOREIGN KEY (doc_id) REFERENCES Doc (id)
     ON DELETE RESTRICT ON UPDATE CASCADE;

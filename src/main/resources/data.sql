@@ -22,27 +22,27 @@ INSERT INTO Office (id, name, address, phone, is_active, org_id)
  VALUES (2, 'Лето на Снежной', 'ул. Снежная, 25', '+79097778855', 1, 2);
 
 
-INSERT INTO User (id, first_name, second_name, middle_name, address, phone, position, is_identified, office_id)
- VALUES (1, 'Иван', 'Иванов', 'Иванович', 'ул. Лесная, 20', '+79990003322', 'manager', 1, 1);
+INSERT INTO User (id, first_name, second_name, middle_name, address, phone, position, is_identified, office_id, citizenship_id)
+ VALUES (1, 'Иван', 'Иванов', 'Иванович', 'ул. Лесная, 20', '+79990003322', 'manager', 1, 1, 1);
 
-INSERT INTO User (id, first_name, second_name, middle_name, address, phone, position, is_identified, office_id)
- VALUES (2, 'Иван', 'Петр', 'Петрович', 'ул. Лесная, 21', '+79990003323', 'manager', 1, 1);
+INSERT INTO User (id, first_name, second_name, middle_name, address, phone, position, is_identified, office_id, citizenship_id)
+ VALUES (2, 'Иван', 'Петр', 'Петрович', 'ул. Лесная, 21', '+79990003323', 'manager', 1, 1, 1);
 
-INSERT INTO User (id, first_name, second_name, middle_name, address, phone, position, is_identified, office_id)
- VALUES (3, 'Петров', 'Петр', 'Петрович', 'ул. Снежная, 55', '+79000123456', 'manager', 1, 2);
+INSERT INTO User (id, first_name, second_name, middle_name, address, phone, position, is_identified, office_id, citizenship_id)
+ VALUES (3, 'Петров', 'Петр', 'Петрович', 'ул. Снежная, 55', '+79000123456', 'manager', 1, 2, 1);
 
-INSERT INTO User (id, first_name, second_name, middle_name, address, phone, position, is_identified, office_id)
- VALUES (4, 'Петров', 'Иван', 'Иванович', 'ул. Снежная, 56', '+79000123411', 'manager', 1, 2);
+INSERT INTO User (id, first_name, second_name, middle_name, address, phone, position, is_identified, office_id, citizenship_id)
+ VALUES (4, 'Петров', 'Иван', 'Иванович', 'ул. Снежная, 56', '+79000123411', 'manager', 1, 2, 1);
 
 
-INSERT INTO User_doc (id, doc_code, doc_number, doc_date, citizenship_code)
- VALUES (1, '21', '8888 123456', '2000-12-05', '643');
+INSERT INTO User_doc (id, doc_id, doc_number, doc_date)
+ VALUES (1, 1, '8888 123456', '2000-12-05');
 
-INSERT INTO User_doc (id, doc_code, doc_number, doc_date, citizenship_code)
- VALUES (2, '21', '8889 1234599', '2001-10-15', '643');
+INSERT INTO User_doc (id, doc_id, doc_number, doc_date)
+ VALUES (2, 1, '8889 1234599', '2001-10-15');
 
-INSERT INTO User_doc (id, doc_code, doc_number, doc_date, citizenship_code)
- VALUES (3, '21', '5556 654378', '1992-10-25', '643');
+INSERT INTO User_doc (id, doc_id, doc_number, doc_date)
+ VALUES (3, 1, '5556 654378', '1992-10-25');
 
-INSERT INTO User_doc (id, doc_code, doc_number, doc_date, citizenship_code)
- VALUES (4, '21', '5555 654321', '1990-05-25', '643');
+INSERT INTO User_doc (id, doc_id, doc_number, doc_date)
+ VALUES (4, 1, '5555 654321', '1990-05-25');
