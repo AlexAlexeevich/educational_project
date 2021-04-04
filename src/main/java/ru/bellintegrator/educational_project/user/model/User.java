@@ -41,7 +41,7 @@ public class User {
     @Column(name = "citizenship_id", nullable = false)
     private Integer citizenshipId;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserDoc userDoc;
 
     public User() {

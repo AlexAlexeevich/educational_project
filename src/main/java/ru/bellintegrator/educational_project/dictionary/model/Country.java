@@ -20,10 +20,6 @@ public class Country {
     @Column(name = "code", length = 3)
     private String code;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "citizenship_id")
-    private List<User> users;
-
     public Country() {
     }
 
@@ -50,13 +46,5 @@ public class Country {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 }

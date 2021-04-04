@@ -1,9 +1,6 @@
 package ru.bellintegrator.educational_project.dictionary.model;
 
-import ru.bellintegrator.educational_project.user.model.UserDoc;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "doc")
@@ -19,10 +16,6 @@ public class Doc {
 
     @Column(name = "code", length = 2)
     private String code;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "doc_id")
-    private List<UserDoc> userDocs;
 
     public Doc() {
     }
@@ -50,13 +43,5 @@ public class Doc {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public List<UserDoc> getUserDocs() {
-        return userDocs;
-    }
-
-    public void setUserDocs(List<UserDoc> userDocs) {
-        this.userDocs = userDocs;
     }
 }

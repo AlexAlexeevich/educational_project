@@ -1,5 +1,6 @@
 package ru.bellintegrator.educational_project.organization.model;
 
+import lombok.*;
 import ru.bellintegrator.educational_project.office.model.Office;
 
 import javax.persistence.*;
@@ -7,6 +8,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "Organization")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Organization {
 
     @Id
@@ -35,6 +39,8 @@ public class Organization {
     @Column(name = "phone", length = 25)
     private String phone;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @Column(name = "is_active")
     private boolean isActive;
 
@@ -42,11 +48,15 @@ public class Organization {
     @JoinColumn(name = "org_id")
     private List<Office> offices;
 
-    public Organization() {
+    public Organization(int id, String name, boolean isActive) {
+        this.id = id;
+        this.name = name;
+        this.isActive = isActive;
     }
 
-    public Organization( String name, String fullName, String inn, String kpp, String address, String phone,
-                         boolean isActive) {
+    public Organization(int id, String name, String fullName, String inn, String kpp, String address, String phone,
+                        boolean isActive) {
+        this.id = id;
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
@@ -56,56 +66,15 @@ public class Organization {
         this.isActive = isActive;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Organization(String name, String fullName, String inn, String kpp, String address, String phone,
+                        boolean isActive) {
         this.name = name;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getInn() {
-        return inn;
-    }
-
-    public void setInn(String inn) {
         this.inn = inn;
-    }
-
-    public String getKpp() {
-        return kpp;
-    }
-
-    public void setKpp(String kpp) {
         this.kpp = kpp;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
         this.phone = phone;
+        this.isActive = isActive;
     }
 
     public boolean getIsActive() {
@@ -116,11 +85,4 @@ public class Organization {
         this.isActive = isActive;
     }
 
-    public List<Office> getOffices() {
-        return offices;
-    }
-
-    public void setOffices(List<Office> offices) {
-        this.offices = offices;
-    }
 }
