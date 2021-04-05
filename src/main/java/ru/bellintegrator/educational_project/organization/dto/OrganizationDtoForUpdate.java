@@ -9,9 +9,10 @@ import lombok.Setter;
 import javax.validation.constraints.*;
 
 @Data
-public class OrganizationDto {
+public class OrganizationDtoForUpdate {
+
     @NotEmpty
-    public String id;
+    public Integer id;
 
     @Size(max = 100)
     @NotEmpty(message = "name cannot be null")
@@ -38,13 +39,14 @@ public class OrganizationDto {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    public boolean isActive;
+    public Boolean isActive;
 
-    public boolean getIsActive() {
+
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 }

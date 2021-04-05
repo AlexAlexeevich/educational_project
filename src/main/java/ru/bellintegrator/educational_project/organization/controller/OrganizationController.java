@@ -2,8 +2,10 @@ package ru.bellintegrator.educational_project.organization.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDto;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForList;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForUpdate;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForListResponse;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForListRequest;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForSave;
 import ru.bellintegrator.educational_project.organization.service.OrganizationService;
 
 import java.util.List;
@@ -22,22 +24,22 @@ public class OrganizationController {
     }
 
     @PostMapping("/list")
-    public List<OrganizationDtoForList> getOrganizations(@RequestBody OrganizationDto organizationDto) {
+    public List<OrganizationDtoForListResponse> getOrganizations(@RequestBody OrganizationDtoForListRequest organizationDto) {
         return organizationService.getOrganizations(organizationDto);
     }
 
     @GetMapping("/{id:[\\d]+}")
-    public OrganizationDto getOrganizationById(@PathVariable("id") String id) {
+    public OrganizationDtoForUpdate getOrganizationById(@PathVariable("id") String id) {
         return organizationService.getOrganizationById(id);
     }
 
     @PostMapping("/update")
-    public void updateOrganization(@RequestBody OrganizationDto organizationDto) {
+    public void updateOrganization(@RequestBody OrganizationDtoForUpdate organizationDto) {
         organizationService.updateOrganization(organizationDto);
     }
 
     @PostMapping("/save")
-    public void addOrganization(@RequestBody OrganizationDto organizationDto) {
+    public void addOrganization(@RequestBody OrganizationDtoForSave organizationDto) {
         organizationService.addOrganization(organizationDto);
     }
 }

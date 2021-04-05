@@ -1,8 +1,10 @@
 package ru.bellintegrator.educational_project.organization.service;
 
 import org.springframework.validation.annotation.Validated;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDto;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForList;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForUpdate;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForListResponse;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForListRequest;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForSave;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -10,12 +12,12 @@ import java.util.List;
 @Validated
 public interface OrganizationService {
 
-    List<OrganizationDtoForList> getOrganizations(@Valid OrganizationDto organizationDto);
+    List<OrganizationDtoForListResponse> getOrganizations(@Valid OrganizationDtoForListRequest organizationDto);
 
-    OrganizationDto getOrganizationById(String id);
+    OrganizationDtoForUpdate getOrganizationById(String id);
 
-    void updateOrganization(@Valid OrganizationDto organizationDto);
+    void updateOrganization(@Valid OrganizationDtoForUpdate organizationDto);
 
-    void addOrganization(@Valid OrganizationDto organizationDto);
+    void addOrganization(@Valid OrganizationDtoForSave organizationDto);
 
 }

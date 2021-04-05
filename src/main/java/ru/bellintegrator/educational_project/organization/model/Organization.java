@@ -42,7 +42,7 @@ public class Organization {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "org_id")
@@ -77,11 +77,11 @@ public class Organization {
         this.isActive = isActive;
     }
 
-    public boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(boolean isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 

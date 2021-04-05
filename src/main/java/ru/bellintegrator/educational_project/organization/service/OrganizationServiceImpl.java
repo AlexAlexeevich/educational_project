@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.educational_project.organization.dao.OrganizationDao;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDto;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForList;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForUpdate;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForListResponse;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForListRequest;
+import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForSave;
 import ru.bellintegrator.educational_project.organization.model.Organization;
 import ru.bellintegrator.educational_project.organization.model.mapper.MapperFacade;
 
@@ -25,29 +27,29 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationDtoForList> getOrganizations(OrganizationDto organizationDto) {
+    public List<OrganizationDtoForListResponse> getOrganizations(OrganizationDtoForListRequest organizationDto) {
         List<Organization> organizations = organizationDao.getOrganizations(organizationDto.getName(),
                 organizationDto.getInn(), organizationDto.getIsActive());
-        return mapperFacade.mapAsList(organizations, OrganizationDtoForList.class);
+        return mapperFacade.mapAsList(organizations, OrganizationDtoForListResponse.class);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public OrganizationDto getOrganizationById(String id) {
+    public OrganizationDtoForUpdate getOrganizationById(String id) {
         Organization organization = organizationDao.getOrganizationById(Integer.parseInt(id));
-        return mapperFacade.map(organization, OrganizationDto.class);
+        return mapperFacade.map(organization, OrganizationDtoForUpdate.class);
     }
 
     @Override
     @Transactional
-    public void updateOrganization(OrganizationDto organizationDto) {
-        Organization organization = mapperFacade.map(organizationDto, Organization.class);
-        organizationDao.updateOrganization(organization);
+    public void updateOrganization(OrganizationDtoForUpdate organizationDto) {
+        Organization organization = organizationDao.getOrganizationById(organizationDto.getId());
+        mapperFacade.map(organizationDto, organization);
     }
 
     @Override
     @Transactional
-    public void addOrganization(OrganizationDto organizationDto) {
+    public void addOrganization(OrganizationDtoForSave organizationDto) {
         Organization organization = mapperFacade.map(organizationDto, Organization.class);
         organizationDao.save(organization);
     }

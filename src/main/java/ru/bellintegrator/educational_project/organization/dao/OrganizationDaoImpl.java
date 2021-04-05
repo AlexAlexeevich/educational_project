@@ -4,6 +4,9 @@ import org.springframework.stereotype.Repository;
 import ru.bellintegrator.educational_project.organization.model.Organization;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.List;
 @Repository
 public class OrganizationDaoImpl implements OrganizationDao {
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public OrganizationDaoImpl(EntityManager entityManager) {
@@ -40,22 +44,6 @@ public class OrganizationDaoImpl implements OrganizationDao {
     @Override
     public Organization getOrganizationById(int id) {
         return entityManager.find(Organization.class, id);
-    }
-
-    @Override
-    public void updateOrganization(Organization organization) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaUpdate<Organization> criteria = builder.createCriteriaUpdate(Organization.class);
-        Root<Organization> root = criteria.from(Organization.class);
-        criteria.set("name", organization.getName());
-        criteria.set("fullName", organization.getFullName());
-        criteria.set("inn", organization.getInn());
-        criteria.set("kpp", organization.getKpp());
-        criteria.set("address", organization.getAddress());
-        criteria.set("phone", organization.getPhone());
-        criteria.set("isActive", organization.getIsActive());
-        criteria.where(builder.equal(root.get("id"), organization.getId()));
-        entityManager.createQuery(criteria).executeUpdate();
     }
 
     @Override

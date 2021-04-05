@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-public class OrganizationDtoForList {
+public class OrganizationDtoForListResponse {
 
     private int id;
 
@@ -14,13 +14,13 @@ public class OrganizationDtoForList {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private boolean isActive;
+    private Boolean isActive;
 
-    public boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 }

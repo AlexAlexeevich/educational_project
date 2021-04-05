@@ -10,8 +10,6 @@ public interface OrganizationDao {
 
     Organization getOrganizationById(int id);
 
-    void updateOrganization(Organization organization);
-
     void save(Organization organization);
 
 }

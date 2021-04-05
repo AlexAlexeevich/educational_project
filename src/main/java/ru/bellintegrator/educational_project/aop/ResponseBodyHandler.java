@@ -1,4 +1,4 @@
-package ru.bellintegrator.educational_project.organization.aop;
+package ru.bellintegrator.educational_project.aop;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -7,8 +7,8 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-import ru.bellintegrator.educational_project.organization.aop.dto.ResultDto;
-import ru.bellintegrator.educational_project.organization.aop.dto.ResultDtoForVoid;
+import ru.bellintegrator.educational_project.aop.dto.ResultDto;
+import ru.bellintegrator.educational_project.aop.dto.ResultDtoForVoid;
 
 @RestControllerAdvice
 public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
