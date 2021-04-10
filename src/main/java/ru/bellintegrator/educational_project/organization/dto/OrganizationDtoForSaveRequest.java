@@ -8,30 +8,30 @@ import lombok.Setter;
 import javax.validation.constraints.*;
 
 @Data
-public class OrganizationDtoForSave {
+public class OrganizationDtoForSaveRequest {
 
     @Size(max = 100)
     @NotEmpty(message = "name cannot be null")
-    public String name;
+    private String name;
 
     @Size(max = 100)
     @NotEmpty(message = "fullName cannot be null")
-    public String fullName;
+    private String fullName;
 
     @Size(max = 12)
     @NotEmpty(message = "inn cannot be null")
-    public String inn;
+    private String inn;
 
     @Size(max = 9)
     @NotEmpty(message = "kpp cannot be null")
-    public String kpp;
+    private String kpp;
 
     @Size(max = 200)
     @NotEmpty(message = "address cannot be null")
-    public String address;
+    private String address;
 
     @Size(max = 25)
-    public String phone;
+    private String phone;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

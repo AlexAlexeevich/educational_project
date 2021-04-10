@@ -1,4 +1,4 @@
-package ru.bellintegrator.educational_project.organization.dto;
+package ru.bellintegrator.educational_project.office.dto;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -9,14 +9,19 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
-public class OrganizationDtoForListRequest {
+public class OfficeDtoForSaveRequest {
+
+    @NotEmpty(message = "orgId cannot be null")
+    private Integer orgId;
 
     @Size(max = 100)
-    @NotEmpty(message = "name cannot be null")
     private String name;
 
-    @Size(max = 12)
-    private String inn;
+    @Size(max = 200)
+    private String address;
+
+    @Size(max = 25)
+    private String phone;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

@@ -31,12 +31,12 @@ CREATE TABLE IF NOT EXISTS User (
     first_name	 VARCHAR(100) NOT NULL 	COMMENT 'Имя',
     second_name	 VARCHAR(100) NOT NULL 	COMMENT 'Фамилия',
     middle_name	 VARCHAR(100) NOT NULL 	COMMENT 'Отчество',
-    address 	 VARCHAR(200) NOT NULL 	COMMENT 'Адрес',
+--     address 	 VARCHAR(200) NOT NULL 	COMMENT 'Адрес',
     phone 		 VARCHAR(25) 		    COMMENT 'Номер телефона',
     position	 VARCHAR(50) NOT NULL 	COMMENT 'Название',
     is_identified 	 BOOLEAN            COMMENT 'Идентификация',
     office_id	 INTEGER NOT NULL	    COMMENT 'Уникальный идентификатор офиса',
-    citizenship_id INTEGER NOT NULL     COMMENT 'Уникальный идентификатор гражданства'
+    citizenship_id INTEGER              COMMENT 'Уникальный идентификатор гражданства'
     );
 CREATE INDEX IX_User_office_id ON User(office_id);
 CREATE INDEX IX_User_citizenship_id ON User(citizenship_id);

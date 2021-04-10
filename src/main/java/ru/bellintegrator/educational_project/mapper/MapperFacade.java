@@ -1,4 +1,4 @@
-package ru.bellintegrator.educational_project.organization.model.mapper;
+package ru.bellintegrator.educational_project.mapper;
 
 import java.util.List;
 

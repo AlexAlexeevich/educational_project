@@ -6,10 +6,9 @@ import ru.bellintegrator.educational_project.office.model.Office;
 import javax.persistence.*;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "Organization")
-@Getter
-@Setter
 @NoArgsConstructor
 public class Organization {
 
@@ -57,17 +56,6 @@ public class Organization {
     public Organization(int id, String name, String fullName, String inn, String kpp, String address, String phone,
                         boolean isActive) {
         this.id = id;
-        this.name = name;
-        this.fullName = fullName;
-        this.inn = inn;
-        this.kpp = kpp;
-        this.address = address;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
-
-    public Organization(String name, String fullName, String inn, String kpp, String address, String phone,
-                        boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;

@@ -1,12 +1,15 @@
 package ru.bellintegrator.educational_project.office.model;
 
+import lombok.*;
 import ru.bellintegrator.educational_project.user.model.User;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "Office")
+@NoArgsConstructor
 public class Office {
 
     @Id
@@ -26,8 +29,10 @@ public class Office {
     @Column(name = "phone", length = 25)
     private String phone;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
     @Column(name = "org_id", nullable = false)
     private Integer orgId;
@@ -36,43 +41,18 @@ public class Office {
     @JoinColumn(name = "office_id")
     private List<User> users;
 
-    public Office() {
+    public Office(Integer id, String name, Boolean isActive) {
+        this.id = id;
+        this.name = name;
+        this.isActive = isActive;
     }
 
-    public Office(String name, String address, String phone, boolean isActive, Integer orgId) {
+    public Office(Integer orgId, String name, String address, String phone, boolean isActive) {
+        this.orgId = orgId;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.isActive = isActive;
-        this.orgId = orgId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public boolean getIsActive() {
@@ -83,11 +63,5 @@ public class Office {
         this.isActive = isActive;
     }
 
-    public Integer getOrgId() {
-        return orgId;
-    }
 
-    public void setOrgId(Integer orgId) {
-        this.orgId = orgId;
-    }
 }

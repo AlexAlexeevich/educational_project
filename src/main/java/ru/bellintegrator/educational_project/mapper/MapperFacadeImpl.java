@@ -1,4 +1,4 @@
-package ru.bellintegrator.educational_project.organization.model.mapper;
+package ru.bellintegrator.educational_project.mapper;
 
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,10 +2,7 @@ package ru.bellintegrator.educational_project.organization.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForUpdate;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForListResponse;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForListRequest;
-import ru.bellintegrator.educational_project.organization.dto.OrganizationDtoForSave;
+import ru.bellintegrator.educational_project.organization.dto.*;
 import ru.bellintegrator.educational_project.organization.service.OrganizationService;
 
 import java.util.List;
@@ -29,7 +26,7 @@ public class OrganizationController {
     }
 
     @GetMapping("/{id:[\\d]+}")
-    public OrganizationDtoForUpdate getOrganizationById(@PathVariable("id") String id) {
+    public OrganizationDtoForSaveResponse getOrganizationById(@PathVariable("id") String id) {
         return organizationService.getOrganizationById(id);
     }
 
@@ -39,7 +36,7 @@ public class OrganizationController {
     }
 
     @PostMapping("/save")
-    public void addOrganization(@RequestBody OrganizationDtoForSave organizationDto) {
+    public void addOrganization(@RequestBody OrganizationDtoForSaveRequest organizationDto) {
         organizationService.addOrganization(organizationDto);
     }
 }

@@ -5,18 +5,22 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
 @Data
-public class OrganizationDtoForListRequest {
+public class OrganizationDtoForSaveResponse {
 
-    @Size(max = 100)
-    @NotEmpty(message = "name cannot be null")
+    private Integer id;
+
     private String name;
 
-    @Size(max = 12)
+    private String fullName;
+
     private String inn;
+
+    private String kpp;
+
+    private String address;
+
+    private String phone;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

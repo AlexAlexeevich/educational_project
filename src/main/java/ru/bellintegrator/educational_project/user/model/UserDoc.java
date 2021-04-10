@@ -1,10 +1,16 @@
 package ru.bellintegrator.educational_project.user.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import ru.bellintegrator.educational_project.dictionary.model.Doc;
+
 import javax.persistence.*;
 import java.sql.Date;
 
+@Data
 @Entity
 @Table(name = "User_doc")
+@NoArgsConstructor
 public class UserDoc {
 
     @Id
@@ -14,9 +20,6 @@ public class UserDoc {
     @Version
     private Integer version;
 
-    @Column(name = "doc_id", nullable = false)
-    private Integer docId;
-
     @Column(name = "doc_number", length = 50)
     private String docNumber;
 
@@ -25,50 +28,22 @@ public class UserDoc {
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
-    public UserDoc() {
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doc_id")
+    private Doc doc;
 
-    public UserDoc(Integer docId, String docNumber, Date docDate) {
-        this.docId = docId;
+    public UserDoc(String docNumber, Date docDate) {
         this.docNumber = docNumber;
         this.docDate = docDate;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Integer getDocId() {
-        return docId;
-    }
-
-    public void setDocId(Integer docId) {
-        this.docId = docId;
-    }
-
-    public String getDocNumber() {
-        return docNumber;
-    }
-
-    public void setDocNumber(String docNumber) {
+    public UserDoc(Doc doc, String docNumber, Date docDate) {
+        this.doc = doc;
         this.docNumber = docNumber;
-    }
-
-    public Date getDocDate() {
-        return docDate;
-    }
-
-    public void setDocDate(Date docDate) {
         this.docDate = docDate;
-    }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
