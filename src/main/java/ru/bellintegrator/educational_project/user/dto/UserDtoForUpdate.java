@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 @Data
 public class UserDtoForUpdate {
@@ -40,7 +41,7 @@ public class UserDtoForUpdate {
     private String docNumber;
 
     @Size(max = 100)
-    private String docDate;
+    private Date docDate;
 
     @Size(max = 3)
     private String citizenshipCode;

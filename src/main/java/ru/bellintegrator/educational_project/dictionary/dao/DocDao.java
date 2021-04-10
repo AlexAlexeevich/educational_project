@@ -14,4 +14,6 @@ public interface DocDao extends JpaRepository<Doc, Integer> {
     List<String[]> findCustom();
 
     Doc findByCode(String code);
+
+    Doc findByName(String name);
 }

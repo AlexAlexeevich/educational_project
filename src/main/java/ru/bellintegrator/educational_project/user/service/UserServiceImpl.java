@@ -50,6 +50,22 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void updateUser(UserDtoForUpdate userDto) {
         User user = userDao.getUserById(userDto.getId());
+
+        if(userDto.getDocName() != null) {
+            Doc doc = docDao.findByName(userDto.getDocName());
+            UserDoc userDoc = user.getUserDoc();
+            userDoc.setDocNumber(userDto.getDocNumber());
+            userDoc.setDocDate(userDto.getDocDate());
+            userDoc.setDoc(doc);
+            user.setUserDoc(userDoc);
+            userDoc.setUser(user);
+        }
+
+        if(userDto.getCitizenshipCode() != null) {
+            Country country = countryDao.findByCode(userDto.getCitizenshipCode());
+            user.setCountry(country);
+        }
+
         mapperFacade.map(userDto, user);
     }
 
