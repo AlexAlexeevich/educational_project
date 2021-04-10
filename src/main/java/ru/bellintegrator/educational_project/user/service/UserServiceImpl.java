@@ -66,8 +66,6 @@ public class UserServiceImpl implements UserService {
             Country country = countryDao.findByCode(userDto.getCitizenshipCode());
             user.setCountry(country);
         }
-
-        mapperFacade.map(userDto, user);
     }
 
     @Override
