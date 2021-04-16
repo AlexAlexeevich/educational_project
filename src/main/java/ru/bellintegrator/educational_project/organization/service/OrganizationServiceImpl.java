@@ -3,6 +3,7 @@ package ru.bellintegrator.educational_project.organization.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.educational_project.exception.NotFoundElementException;
 import ru.bellintegrator.educational_project.organization.dao.OrganizationDao;
 import ru.bellintegrator.educational_project.organization.dto.*;
 import ru.bellintegrator.educational_project.organization.model.Organization;
@@ -24,16 +25,29 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationDtoForListResponse> getOrganizations(OrganizationDtoForListRequest organizationDto) {
+    public List<OrganizationDtoForListResponse> getOrganizations(OrganizationDtoForListRequest organizationDto) throws NotFoundElementException {
+
         List<Organization> organizations = organizationDao.getOrganizations(organizationDto.getName(),
                 organizationDto.getInn(), organizationDto.getIsActive());
+        if (organizations.isEmpty()) {
+            throw new NotFoundElementException("No organization");
+        }
         return mapperFacade.mapAsList(organizations, OrganizationDtoForListResponse.class);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public OrganizationDtoForSaveResponse getOrganizationById(String id) {
-        Organization organization = organizationDao.getOrganizationById(Integer.parseInt(id));
+    public OrganizationDtoForSaveResponse getOrganizationById(String id) throws NumberFormatException, NotFoundElementException {
+        int localId;
+        try {
+            localId = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Input correctly number");
+        }
+        Organization organization = organizationDao.getOrganizationById(localId);
+        if (organization == null) {
+            throw new NotFoundElementException("No organization");
+        }
         return mapperFacade.map(organization, OrganizationDtoForSaveResponse.class);
     }
 
@@ -41,6 +55,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Transactional
     public void updateOrganization(OrganizationDtoForUpdate organizationDto) {
         Organization organization = organizationDao.getOrganizationById(organizationDto.getId());
+        if (organization == null) {
+            throw new NotFoundElementException("No organization");
+        }
         mapperFacade.map(organizationDto, organization);
     }
 

@@ -5,17 +5,18 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
 public class OrganizationDtoForListRequest {
 
-    @Size(max = 100)
-    @NotEmpty(message = "name cannot be null")
+    @Size(max = 100, message = "Name cannot be more than 100 characters")
+    @NotEmpty(message = "Name cannot be null")
     private String name;
 
-    @Size(max = 12)
+    @Size(max = 12, message = "Inn cannot be more than 12 characters")
     private String inn;
 
     @Getter(AccessLevel.NONE)
