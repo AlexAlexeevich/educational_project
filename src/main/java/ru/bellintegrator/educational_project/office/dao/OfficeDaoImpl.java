@@ -2,6 +2,7 @@ package ru.bellintegrator.educational_project.office.dao;
 
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.educational_project.office.model.Office;
+import ru.bellintegrator.educational_project.organization.model.Organization;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -51,5 +52,11 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public void save(Office office) {
         entityManager.persist(office);
+    }
+
+    @Override
+    public boolean checkIsExistOrganization(int orgId) {
+        Organization organization = entityManager.find(Organization.class, orgId);
+        return organization == null;
     }
 }

@@ -3,6 +3,7 @@ package ru.bellintegrator.educational_project.office.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.educational_project.exception.NotFoundElementException;
 import ru.bellintegrator.educational_project.mapper.MapperFacade;
 import ru.bellintegrator.educational_project.office.dao.OfficeDao;
 import ru.bellintegrator.educational_project.office.dto.*;
@@ -27,13 +28,25 @@ public class OfficeServiceImpl implements OfficeService {
     public List<OfficeDtoForListResponse> getOffices(OfficeDtoForListRequest officeDto) {
         List<Office> offices = officeDao.getOffices(officeDto.getOrgId(), officeDto.getName(), officeDto.getPhone(),
                 officeDto.getIsActive());
+        if (offices.isEmpty()) {
+            throw new NotFoundElementException("No Office");
+        }
         return mapperFacade.mapAsList(offices, OfficeDtoForListResponse.class);
     }
 
     @Override
     @Transactional(readOnly = true)
     public OfficeDtoForSaveResponse getOfficeById(String id) {
-        Office office = officeDao.getOfficeById(Integer.parseInt(id));
+        int localId;
+        try {
+            localId = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Input correctly number");
+        }
+        Office office = officeDao.getOfficeById(localId);
+        if (office == null) {
+            throw new NotFoundElementException("No office");
+        }
         return mapperFacade.map(office, OfficeDtoForSaveResponse.class);
     }
 
@@ -41,12 +54,19 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     public void updateOffice(OfficeDtoForUpdate officeDto) {
         Office office = officeDao.getOfficeById(officeDto.getId());
+        if (office == null) {
+            throw new NotFoundElementException("No office");
+        }
         mapperFacade.map(officeDto, office);
     }
 
     @Override
     @Transactional
     public void addOffice(OfficeDtoForSaveRequest officeDto) {
+        boolean isExistOrganization = officeDao.checkIsExistOrganization(officeDto.getOrgId());
+        if (isExistOrganization) {
+            throw new NotFoundElementException("No organization");
+        }
         Office office = mapperFacade.map(officeDto, Office.class);
         officeDao.save(office);
     }

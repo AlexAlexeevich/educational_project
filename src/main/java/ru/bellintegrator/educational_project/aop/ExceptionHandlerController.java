@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.bellintegrator.educational_project.aop.dto.ErrorDto;
@@ -17,7 +18,7 @@ public class ExceptionHandlerController {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerController.class);
 
     @ExceptionHandler({NotFoundElementException.class, NumberFormatException.class, ValidationException.class,
-            Exception.class})
+            HttpMessageNotReadableException.class, Exception.class})
     public ResponseEntity<ErrorDto> noElementException(Exception e) {
 
         ErrorDto errorDto = new ErrorDto();
@@ -28,6 +29,9 @@ public class ExceptionHandlerController {
         } else if (e.getClass() == NumberFormatException.class) {
             return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
         } else if (e.getClass() == ValidationException.class) {
+            return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+        } else if (e.getClass() == HttpMessageNotReadableException.class) {
+            errorDto.setError("Invalid data entered");
             return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
         } else {
             String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvxyz";

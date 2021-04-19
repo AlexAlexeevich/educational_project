@@ -12,4 +12,6 @@ public interface CountryDao extends JpaRepository<Country, Integer> {
     List<String[]> findCustom();
 
     Country findByCode(String code);
+
+    boolean existsByCode(String code);
 }

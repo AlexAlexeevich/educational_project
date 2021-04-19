@@ -6,23 +6,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
 public class OfficeDtoForUpdate {
 
-    @NotEmpty
+    @NotNull(message = "Id cannot be null")
     private Integer id;
 
-    @Size(max = 100)
-    @NotEmpty(message = "name cannot be null")
+    @Size(max = 100, message = "Name cannot be more than 100 characters")
+    @NotEmpty(message = "Name cannot be null")
     private String name;
 
-    @Size(max = 200)
-    @NotEmpty(message = "address cannot be null")
+    @Size(max = 200, message = "Address cannot be more than 200 characters")
+    @NotEmpty(message = "Address cannot be null")
     private String address;
 
-    @Size(max = 25)
+    @Size(max = 25, message = "Phone cannot be more than 200 characters")
     private String phone;
 
     @Getter(AccessLevel.NONE)

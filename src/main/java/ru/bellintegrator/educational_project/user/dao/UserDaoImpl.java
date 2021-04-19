@@ -2,6 +2,7 @@ package ru.bellintegrator.educational_project.user.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.educational_project.office.model.Office;
 import ru.bellintegrator.educational_project.user.model.User;
 
 import javax.persistence.EntityManager;
@@ -63,5 +64,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void save(User user) {
         entityManager.persist(user);
+    }
+
+    @Override
+    public boolean checkIsExistOffice(int officeId) {
+        Office office = entityManager.find(Office.class, officeId);
+        return office == null;
     }
 }

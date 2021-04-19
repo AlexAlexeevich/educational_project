@@ -11,4 +11,6 @@ public interface OfficeDao {
     Office getOfficeById(int id);
 
     void save(Office office);
+
+    boolean checkIsExistOrganization(int orgId);
 }

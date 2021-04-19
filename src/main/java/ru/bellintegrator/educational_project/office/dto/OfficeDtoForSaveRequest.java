@@ -5,22 +5,22 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
 public class OfficeDtoForSaveRequest {
 
-    @NotEmpty(message = "orgId cannot be null")
+    @NotNull(message = "OrgId cannot be null")
     private Integer orgId;
 
-    @Size(max = 100)
+    @Size(max = 100, message = "Name cannot be more than 100 characters")
     private String name;
 
-    @Size(max = 200)
+    @Size(max = 200, message = "Address cannot be more than 200 characters")
     private String address;
 
-    @Size(max = 25)
+    @Size(max = 25, message = "Phone cannot be more than 25 characters")
     private String phone;
 
     @Getter(AccessLevel.NONE)

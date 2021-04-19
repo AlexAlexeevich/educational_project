@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 @Data
 public class OrganizationDtoForUpdate {
 
-    @NotNull(message = "Name cannot be empty")
+    @NotNull(message = "Id cannot be null")
     private Integer id;
 
     @Size(max = 100, message = "Name cannot be more than 100 characters")
@@ -30,11 +30,11 @@ public class OrganizationDtoForUpdate {
     @NotEmpty(message = "Kpp cannot be null")
     private String kpp;
 
-    @Size(max = 200, message = "Inn cannot be more than 200 characters")
+    @Size(max = 200, message = "Address cannot be more than 200 characters")
     @NotEmpty(message = "Address cannot be null")
     private String address;
 
-    @Size(max = 25, message = "Inn cannot be more than 25 characters")
+    @Size(max = 25, message = "Phone cannot be more than 25 characters")
     private String phone;
 
     @Getter(AccessLevel.NONE)

@@ -16,4 +16,8 @@ public interface DocDao extends JpaRepository<Doc, Integer> {
     Doc findByCode(String code);
 
     Doc findByName(String name);
+
+    boolean existsByName(String name);
+
+    boolean existsByCode(String code);
 }

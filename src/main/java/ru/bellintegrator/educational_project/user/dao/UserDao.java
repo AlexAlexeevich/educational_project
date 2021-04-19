@@ -12,4 +12,6 @@ public interface UserDao {
     User getUserById(int id);
 
     void save(User user);
+
+    boolean checkIsExistOffice(int officeId);
 }
