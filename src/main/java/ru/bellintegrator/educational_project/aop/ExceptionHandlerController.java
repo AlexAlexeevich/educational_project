@@ -11,6 +11,7 @@ import ru.bellintegrator.educational_project.aop.dto.ErrorDto;
 import ru.bellintegrator.educational_project.exception.NotFoundElementException;
 
 import javax.validation.ValidationException;
+import java.util.UUID;
 
 @RestControllerAdvice
 public class ExceptionHandlerController {
@@ -34,16 +35,10 @@ public class ExceptionHandlerController {
             errorDto.setError("Invalid data entered");
             return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
         } else {
-            String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvxyz";
-            int l = 10;
-            StringBuilder stringBuilder = new StringBuilder(l);
-            for (int i = 0; i < l; i++) {
-                int index = (int) (AlphaNumericString.length() * Math.random());
-                stringBuilder.append(AlphaNumericString.charAt(index));
-            }
-            logger.error("Unexpected error № " + stringBuilder.toString(), e);
+            UUID uuid = UUID.randomUUID();
+            logger.error("Unexpected error № " + uuid.toString(), e);
+            errorDto.setError("Server Error № " + uuid.toString());
 
-            errorDto.setError("Server Error № " + stringBuilder.toString());
             return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
