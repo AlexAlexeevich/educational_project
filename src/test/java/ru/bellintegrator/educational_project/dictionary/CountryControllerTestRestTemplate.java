@@ -9,7 +9,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.bellintegrator.educational_project.aop.dto.ResultDtoForVoid;
+import ru.bellintegrator.educational_project.aop.dto.ResultDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -20,8 +20,8 @@ public class CountryControllerTestRestTemplate {
     @Test
     public void getCountriesTest() {
 
-        ResponseEntity<ResultDtoForVoid> result = this.restTemplate
-                .postForEntity("/api/countries", null, ResultDtoForVoid.class);
+        ResponseEntity<ResultDto> result = this.restTemplate
+                .postForEntity("/api/countries", null, ResultDto.class);
 
         Assert.assertEquals(result.getStatusCode(), HttpStatus.OK);
         Assert.assertNotNull(result);

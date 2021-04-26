@@ -14,6 +14,8 @@ import ru.bellintegrator.educational_project.aop.dto.ResultDtoForVoid;
 import ru.bellintegrator.educational_project.office.dto.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -32,90 +34,88 @@ public class OfficeControllerMockMvcIntegrationTest {
     @Test
     public void getOfficesTest() throws Exception {
         OfficeDtoForListResponse office = new OfficeDtoForListResponse(1, "Зима на Лесной", true);
-        List<OfficeDtoForListResponse> expected = new ArrayList<>();
-        expected.add(office);
+        List<OfficeDtoForListResponse> list = new ArrayList<>();
+        list.add(office);
+        ResultDto expected = new ResultDto();
+        expected.setData(list);
 
         OfficeDtoForListRequest officeDtoForListRequest = new OfficeDtoForListRequest(1, null, null, true);
 
         this.mockMvc.perform(post("/api/office/list")
                 .contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(officeDtoForListRequest)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*]", hasSize(1)))
-                .andExpect(jsonPath("$.data[0].id").value(expected.get(0).getId()))
-                .andExpect(jsonPath("$.data[0].name").value(expected.get(0).getName()))
-                .andExpect(jsonPath("$.data[0].isActive").value(expected.get(0).getIsActive()));
+                .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
     }
 
     @Test
     public void getOfficeByIdTest() throws Exception {
-        OfficeDtoForSaveResponse expected = new OfficeDtoForSaveResponse(2, "Лето на Снежной", "ул. Снежная, 25",
+        OfficeDtoForSaveResponse officeDtoForSaveResponse = new OfficeDtoForSaveResponse(2, "Лето на Снежной", "ул. Снежная, 25",
                 "+79097778855", true);
 
-        ResultDto resultDto = new ResultDto();
-        resultDto.setData(expected);
+        ResultDto expected = new ResultDto();
+        expected.setData(officeDtoForSaveResponse);
         this.mockMvc.perform(get("/api/office/2"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.id").value(expected.getId()))
-                .andExpect(jsonPath("$.data.name").value(expected.getName()))
-                .andExpect(jsonPath("$.data.address").value(expected.getAddress()))
-                .andExpect(jsonPath("$.data.phone").value(expected.getPhone()))
-                .andExpect(jsonPath("$.data.isActive").value(expected.getIsActive()));
+                .andExpect(jsonPath("$.data.id").value(officeDtoForSaveResponse.getId()))
+                .andExpect(jsonPath("$.data.name").value(officeDtoForSaveResponse.getName()))
+                .andExpect(jsonPath("$.data.address").value(officeDtoForSaveResponse.getAddress()))
+                .andExpect(jsonPath("$.data.phone").value(officeDtoForSaveResponse.getPhone()))
+                .andExpect(jsonPath("$.data.isActive").value(officeDtoForSaveResponse.getIsActive()));
     }
 
     @Test
     public void getOfficeByIdTest_failNotFound() throws Exception {
-        mockMvc.perform(get("/api/office/222"))
+        this.mockMvc.perform(get("/api/office/222"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void getOfficeByIdTest_failBadRequest() throws Exception {
-        mockMvc.perform(get("/api/office/zzz"))
+        this.mockMvc.perform(get("/api/office/zzz"))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     public void updateOfficeTest() throws Exception {
-        OfficeDtoForUpdate expected = new OfficeDtoForUpdate(1, "test name", "test address", "", false);
+        OfficeDtoForUpdate officeDtoForUpdate = new OfficeDtoForUpdate(1, "test name", "test address", "", false);
 
-        ResultDtoForVoid resultDtoForVoid = new ResultDtoForVoid();
-        resultDtoForVoid.setResult("success");
+        ResultDto expected = new ResultDto(new ResultDtoForVoid("success"));
 
         this.mockMvc.perform(post("/api/office/update")
-                .contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(expected)))
+                .contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(officeDtoForUpdate)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result").value(resultDtoForVoid.getResult()));
+                .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
+
 
         this.mockMvc.perform(get("/api/office/1"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.id").value(expected.getId()))
-                .andExpect(jsonPath("$.data.name").value(expected.getName()))
-                .andExpect(jsonPath("$.data.address").value(expected.getAddress()))
-                .andExpect(jsonPath("$.data.phone").value(expected.getPhone()))
-                .andExpect(jsonPath("$.data.isActive").value(expected.getIsActive()));
+                .andExpect(jsonPath("$.data.id").value(officeDtoForUpdate.getId()))
+                .andExpect(jsonPath("$.data.name").value(officeDtoForUpdate.getName()))
+                .andExpect(jsonPath("$.data.address").value(officeDtoForUpdate.getAddress()))
+                .andExpect(jsonPath("$.data.phone").value(officeDtoForUpdate.getPhone()))
+                .andExpect(jsonPath("$.data.isActive").value(officeDtoForUpdate.getIsActive()));
     }
 
     @Test
     public void addOfficeTest() throws Exception {
-        OfficeDtoForSaveRequest expected = new OfficeDtoForSaveRequest(2, "test name", "test address",
+        OfficeDtoForSaveRequest officeDtoForSaveRequest = new OfficeDtoForSaveRequest(2, "test name", "test address",
                 "test phone", true);
 
-        ResultDtoForVoid resultDtoForVoid = new ResultDtoForVoid();
-        resultDtoForVoid.setResult("success");
+        ResultDto expected = new ResultDto(new ResultDtoForVoid("success"));
 
-        mockMvc.perform(post("/api/office/save")
-                .contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(expected)))
+        this.mockMvc.perform(post("/api/office/save")
+                .contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(officeDtoForSaveRequest)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result").value(resultDtoForVoid.getResult()));
+                .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
 
         this.mockMvc.perform(get("/api/office/3"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.name").value(expected.getName()))
-                .andExpect(jsonPath("$.data.address").value(expected.getAddress()))
-                .andExpect(jsonPath("$.data.phone").value(expected.getPhone()))
-                .andExpect(jsonPath("$.data.isActive").value(expected.getIsActive()));
+                .andExpect(jsonPath("$.data.name").value(officeDtoForSaveRequest.getName()))
+                .andExpect(jsonPath("$.data.address").value(officeDtoForSaveRequest.getAddress()))
+                .andExpect(jsonPath("$.data.phone").value(officeDtoForSaveRequest.getPhone()))
+                .andExpect(jsonPath("$.data.isActive").value(officeDtoForSaveRequest.getIsActive()));
     }
 }

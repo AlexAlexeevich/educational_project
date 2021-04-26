@@ -26,9 +26,7 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
 
 
         if (body == null) {
-            ResultDtoForVoid resultDtoForVoid = new ResultDtoForVoid();
-            resultDtoForVoid.setResult("success");
-            return resultDtoForVoid;
+            return new ResultDto(new ResultDtoForVoid("success"));
         } else if (body.getClass() == ErrorDto.class) {
             return body;
         } else {

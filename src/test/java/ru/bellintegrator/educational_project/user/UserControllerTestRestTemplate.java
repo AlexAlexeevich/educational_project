@@ -60,14 +60,13 @@ public class UserControllerTestRestTemplate {
         UserDtoForUpdate userDtoForUpdate = new UserDtoForUpdate(2, 2, "test first name", "test second name", "test middle name",
                 "test position", "test phone", "Паспорт гражданина РФ", "0000", null, "643", false);
 
-        ResultDtoForVoid resultDtoForVoid = new ResultDtoForVoid();
-        resultDtoForVoid.setResult("success");
+        ResultDto resultDto = new ResultDto(new ResultDtoForVoid("success"));
 
-        ResponseEntity<ResultDtoForVoid> result = this.restTemplate.postForEntity("/api/user/update", userDtoForUpdate, ResultDtoForVoid.class);
+        ResponseEntity<ResultDto> result = this.restTemplate.postForEntity("/api/user/update", userDtoForUpdate, ResultDto.class);
 
         System.out.println(result);
         String expected = new ObjectMapper().writeValueAsString(Objects.requireNonNull(result.getBody()));
-        String actual = new ObjectMapper().writeValueAsString(resultDtoForVoid);
+        String actual = new ObjectMapper().writeValueAsString(resultDto);
         Assert.assertEquals(expected, actual);
 
         UserDtoForSaveResponse userDtoForSaveResponse = new UserDtoForSaveResponse(2, "test first name", "test second name", "test middle name",
@@ -84,13 +83,12 @@ public class UserControllerTestRestTemplate {
         UserDtoForSaveRequest userDtoForSave = new UserDtoForSaveRequest(1, "test first name", "test second name", "test middle name",
                 "test position", "test phone", "21", "Паспорт гражданина РФ", "9999", null, "643", false);
 
-        ResultDtoForVoid resultDtoForVoid = new ResultDtoForVoid();
-        resultDtoForVoid.setResult("success");
+        ResultDto resultDto = new ResultDto(new ResultDtoForVoid("success"));
 
-        ResponseEntity<ResultDtoForVoid> result = this.restTemplate.postForEntity("/api/user/save", userDtoForSave, ResultDtoForVoid.class);
+        ResponseEntity<ResultDto> result = this.restTemplate.postForEntity("/api/user/save", userDtoForSave, ResultDto.class);
 
         String expected = new ObjectMapper().writeValueAsString(Objects.requireNonNull(result.getBody()));
-        String actual = new ObjectMapper().writeValueAsString(resultDtoForVoid);
+        String actual = new ObjectMapper().writeValueAsString(resultDto);
         Assert.assertEquals(expected, actual);
 
         UserDtoForSaveResponse userDtoForSaveResponse = new UserDtoForSaveResponse(5, "test first name", "test second name", "test middle name",
