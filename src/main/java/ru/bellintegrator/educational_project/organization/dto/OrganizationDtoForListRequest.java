@@ -1,15 +1,14 @@
 package ru.bellintegrator.educational_project.organization.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrganizationDtoForListRequest {
 
     @Size(max = 100, message = "Name cannot be more than 100 characters")

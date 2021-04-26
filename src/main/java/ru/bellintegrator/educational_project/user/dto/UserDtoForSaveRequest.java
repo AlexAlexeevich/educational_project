@@ -1,9 +1,6 @@
 package ru.bellintegrator.educational_project.user.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,6 +8,8 @@ import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDtoForSaveRequest {
 
     @NotNull(message = "Office id cannot be null")
