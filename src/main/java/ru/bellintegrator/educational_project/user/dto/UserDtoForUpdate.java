@@ -1,9 +1,6 @@
 package ru.bellintegrator.educational_project.user.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,6 +8,8 @@ import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDtoForUpdate {
 
     @NotNull(message = "Id cannot be null")
@@ -48,14 +47,14 @@ public class UserDtoForUpdate {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private Boolean isActive;
+    private Boolean isIdentified;
 
 
-    public Boolean getIsActive() {
-        return isActive;
+    public Boolean getIsIdentified() {
+        return isIdentified;
     }
 
-    public void setIsActive(Boolean active) {
-        isActive = active;
+    public void setIsIdentified(Boolean identified) {
+        isIdentified = identified;
     }
 }

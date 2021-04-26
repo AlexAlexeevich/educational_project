@@ -1,13 +1,12 @@
 package ru.bellintegrator.educational_project.organization.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrganizationDtoForSaveRequest {
 
     @Size(max = 100, message = "Name cannot be more than 100 characters")
