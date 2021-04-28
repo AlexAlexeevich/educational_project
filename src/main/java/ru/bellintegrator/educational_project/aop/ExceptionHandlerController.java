@@ -13,11 +13,20 @@ import ru.bellintegrator.educational_project.exception.NotFoundElementException;
 import javax.validation.ValidationException;
 import java.util.UUID;
 
+/**
+ * Класс обрабатывающий исключения возникающие после вызовов методов контроллеров
+ */
 @RestControllerAdvice
 public class ExceptionHandlerController {
 
+    /**
+     * Поле logger, используемое для логирования
+     */
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerController.class);
 
+    /**
+     * Обработать исключения возникшие после вызовов методов контроллеров
+     */
     @ExceptionHandler({NotFoundElementException.class, NumberFormatException.class, ValidationException.class,
             HttpMessageNotReadableException.class, Exception.class})
     public ResponseEntity<ErrorDto> noElementException(Exception e) {

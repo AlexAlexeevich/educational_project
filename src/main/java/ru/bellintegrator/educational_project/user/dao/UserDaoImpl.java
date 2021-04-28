@@ -2,7 +2,6 @@ package ru.bellintegrator.educational_project.user.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.bellintegrator.educational_project.office.model.Office;
 import ru.bellintegrator.educational_project.user.model.User;
 
 import javax.persistence.EntityManager;
@@ -13,16 +12,29 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Repository
 public class UserDaoImpl implements UserDao {
 
+    /**
+     * Поле entityManager
+     */
     private final EntityManager entityManager;
 
+    /**
+     * Конструктор - создание нового объекта с определенными значениями
+     * @param entityManager - объект EntityManager
+     */
     @Autowired
     public UserDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<User> getUsers(Integer officeId, String firstName, String lastName, String middleName, String position,
                                String docCode, String citizenshipCode) {
@@ -56,19 +68,19 @@ public class UserDaoImpl implements UserDao {
         return entityManager.createQuery(criteria).getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User getUserById(int id) {
         return entityManager.find(User.class, id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(User user) {
         entityManager.persist(user);
-    }
-
-    @Override
-    public boolean checkIsExistOffice(int officeId) {
-        Office office = entityManager.find(Office.class, officeId);
-        return office == null;
     }
 }

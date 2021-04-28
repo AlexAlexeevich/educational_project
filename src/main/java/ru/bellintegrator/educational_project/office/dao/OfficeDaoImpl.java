@@ -2,7 +2,6 @@ package ru.bellintegrator.educational_project.office.dao;
 
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.educational_project.office.model.Office;
-import ru.bellintegrator.educational_project.organization.model.Organization;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,15 +11,28 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Repository
 public class OfficeDaoImpl implements OfficeDao {
 
+    /**
+     * Поле entityManager
+     */
     private final EntityManager entityManager;
 
+    /**
+     * Конструктор - создание нового объекта с определенными значениями
+     * @param entityManager - объект EntityManager
+     */
     public OfficeDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Office> getOffices(int orgId, String name, String phone, Boolean isActive) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -44,19 +56,28 @@ public class OfficeDaoImpl implements OfficeDao {
         return entityManager.createQuery(criteria).getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Office getOfficeById(int id) {
         return entityManager.find(Office.class, id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(Office office) {
         entityManager.persist(office);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean checkIsExistOrganization(int orgId) {
-        Organization organization = entityManager.find(Organization.class, orgId);
-        return organization == null;
+    public boolean checkIsExistOffice(int officeId) {
+        Office office = entityManager.find(Office.class, officeId);
+        return office == null;
     }
 }

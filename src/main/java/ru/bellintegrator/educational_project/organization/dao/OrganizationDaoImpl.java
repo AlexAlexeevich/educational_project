@@ -8,15 +8,28 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Repository
 public class OrganizationDaoImpl implements OrganizationDao {
 
+    /**
+     * Поле entityManager
+     */
     private final EntityManager entityManager;
 
+    /**
+     * Конструктор - создание нового объекта с определенными значениями
+     * @param entityManager - объект EntityManager
+     */
     public OrganizationDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Organization> getOrganizations(String name, String inn, Boolean isActive) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -37,13 +50,28 @@ public class OrganizationDaoImpl implements OrganizationDao {
         return entityManager.createQuery(criteria).getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Organization getOrganizationById(int id) {
         return entityManager.find(Organization.class, id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(Organization organization) {
         entityManager.persist(organization);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkIsExistOrganization(int orgId) {
+        Organization organization = entityManager.find(Organization.class, orgId);
+        return organization == null;
     }
 }

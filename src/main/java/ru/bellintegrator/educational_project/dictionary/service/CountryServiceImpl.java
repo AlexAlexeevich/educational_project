@@ -9,16 +9,29 @@ import ru.bellintegrator.educational_project.dictionary.dto.CountryDtoForListRes
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class CountryServiceImpl implements CountryService{
 
+    /**
+     * Поле countryDao
+     */
     private final CountryDao countryDao;
 
+    /**
+     * Конструктор - создание нового объекта с определенными значениями
+     * @param countryDao - объект countryDao
+     */
     @Autowired
     public CountryServiceImpl(CountryDao countryDao) {
         this.countryDao = countryDao;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public List<CountryDtoForListResponse> getCountries() {

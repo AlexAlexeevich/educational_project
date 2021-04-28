@@ -9,16 +9,29 @@ import ru.bellintegrator.educational_project.dictionary.dto.DocDtoForListRespons
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class DocServiceImpl implements DocService {
 
+    /**
+     * Поле docDao
+     */
     private final DocDao docDao;
 
+    /**
+     * Конструктор - создание нового объекта с определенными значениями
+     * @param docDao - объект docDao
+     */
     @Autowired
     public DocServiceImpl(DocDao docDao) {
         this.docDao = docDao;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public List<DocDtoForListResponse> getDocs() {

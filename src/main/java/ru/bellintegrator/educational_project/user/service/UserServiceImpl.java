@@ -9,6 +9,7 @@ import ru.bellintegrator.educational_project.dictionary.model.Country;
 import ru.bellintegrator.educational_project.dictionary.model.Doc;
 import ru.bellintegrator.educational_project.exception.NotFoundElementException;
 import ru.bellintegrator.educational_project.mapper.MapperFacade;
+import ru.bellintegrator.educational_project.office.dao.OfficeDao;
 import ru.bellintegrator.educational_project.user.dao.UserDao;
 import ru.bellintegrator.educational_project.user.dto.*;
 import ru.bellintegrator.educational_project.user.model.User;
@@ -16,22 +17,57 @@ import ru.bellintegrator.educational_project.user.model.UserDoc;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
+    /**
+     * Поле userDao
+     */
     private final UserDao userDao;
+
+    /**
+     * Поле countryDao
+     */
     private final CountryDao countryDao;
+
+    /**
+     * Поле docDao
+     */
     private final DocDao docDao;
+
+    /**
+     * Поле officeDao
+     */
+    private final OfficeDao officeDao;
+
+    /**
+     * Поле mapperFacade
+     */
     private final MapperFacade mapperFacade;
 
+    /**
+     * Конструктор - создание нового объекта с определенными значениями
+     * @param userDao - объект userDao
+     * @param countryDao - объект countryDao
+     * @param docDao - объект docDao
+     * @param officeDao - объект officeDao
+     * @param mapperFacade - объект mapperFacade
+     */
     @Autowired
-    public UserServiceImpl(UserDao userDao, CountryDao countryDao, DocDao docDao, MapperFacade mapperFacade) {
+    public UserServiceImpl(UserDao userDao, CountryDao countryDao, DocDao docDao, OfficeDao officeDao, MapperFacade mapperFacade) {
         this.userDao = userDao;
         this.countryDao = countryDao;
         this.docDao = docDao;
+        this.officeDao = officeDao;
         this.mapperFacade = mapperFacade;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public List<UserDtoForListResponse> getUsers(UserDtoForListRequest userDto) {
@@ -43,6 +79,9 @@ public class UserServiceImpl implements UserService {
         return mapperFacade.mapAsList(users, UserDtoForListResponse.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDtoForSaveResponse getUserById(String id) {
@@ -59,10 +98,13 @@ public class UserServiceImpl implements UserService {
         return mapperFacade.map(user, UserDtoForSaveResponse.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public void updateUser(UserDtoForUpdate userDto) {
-        boolean isExistOffice = userDao.checkIsExistOffice(userDto.getOfficeId());
+        boolean isExistOffice = officeDao.checkIsExistOffice(userDto.getOfficeId());
         if (isExistOffice) {
             throw new NotFoundElementException("No office");
         }
@@ -92,10 +134,13 @@ public class UserServiceImpl implements UserService {
         mapperFacade.map(userDto, user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public void addUser(UserDtoForSaveRequest userDto) {
-        boolean isExistOffice = userDao.checkIsExistOffice(userDto.getOfficeId());
+        boolean isExistOffice = officeDao.checkIsExistOffice(userDto.getOfficeId());
         if (isExistOffice) {
             throw new NotFoundElementException("No office");
         }
@@ -118,6 +163,4 @@ public class UserServiceImpl implements UserService {
 
         userDao.save(user);
     }
-
-
 }

@@ -8,21 +8,47 @@ import ru.bellintegrator.educational_project.mapper.MapperFacade;
 import ru.bellintegrator.educational_project.office.dao.OfficeDao;
 import ru.bellintegrator.educational_project.office.dto.*;
 import ru.bellintegrator.educational_project.office.model.Office;
+import ru.bellintegrator.educational_project.organization.dao.OrganizationDao;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class OfficeServiceImpl implements OfficeService {
 
+    /**
+     * Поле officeDao
+     */
     private final OfficeDao officeDao;
+
+    /**
+     * Поле organizationDao
+     */
+    private final OrganizationDao organizationDao;
+
+    /**
+     * Поле mapperFacade
+     */
     private final MapperFacade mapperFacade;
 
+    /**
+     * Конструктор - создание нового объекта с определенными значениями
+     * @param officeDao - объект officeDao
+     * @param organizationDao - объект organizationDao
+     * @param mapperFacade - объект mapperFacade
+     */
     @Autowired
-    public OfficeServiceImpl(OfficeDao officeDao, MapperFacade mapperFacade) {
+    public OfficeServiceImpl(OfficeDao officeDao, OrganizationDao organizationDao, MapperFacade mapperFacade) {
         this.officeDao = officeDao;
+        this.organizationDao = organizationDao;
         this.mapperFacade = mapperFacade;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public List<OfficeDtoForListResponse> getOffices(OfficeDtoForListRequest officeDto) {
@@ -34,6 +60,9 @@ public class OfficeServiceImpl implements OfficeService {
         return mapperFacade.mapAsList(offices, OfficeDtoForListResponse.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public OfficeDtoForSaveResponse getOfficeById(String id) {
@@ -50,6 +79,9 @@ public class OfficeServiceImpl implements OfficeService {
         return mapperFacade.map(office, OfficeDtoForSaveResponse.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public void updateOffice(OfficeDtoForUpdate officeDto) {
@@ -60,10 +92,13 @@ public class OfficeServiceImpl implements OfficeService {
         mapperFacade.map(officeDto, office);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public void addOffice(OfficeDtoForSaveRequest officeDto) {
-        boolean isExistOrganization = officeDao.checkIsExistOrganization(officeDto.getOrgId());
+        boolean isExistOrganization = organizationDao.checkIsExistOrganization(officeDto.getOrgId());
         if (isExistOrganization) {
             throw new NotFoundElementException("No organization");
         }

@@ -13,17 +13,31 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * Класс REST-контроллер для работы со страной гражданства.
+ */
 @RestController
 @RequestMapping(value = "/api/countries", produces = APPLICATION_JSON_VALUE)
 public class CountryController {
 
+    /**
+     * Поле countryService
+     */
     private final CountryService countryService;
 
+    /**
+     * Конструктор - создание нового объекта с определенными значениями
+     * @param countryService - объект countryService
+     */
     @Autowired
     public CountryController(CountryService countryService) {
         this.countryService = countryService;
     }
 
+    /**
+     * Получить список всех стран
+     * @return возвращает список всех стран
+     */
     @PostMapping("")
     public ResponseEntity<List<CountryDtoForListResponse>> getCountries() {
         return new ResponseEntity<>(countryService.getCountries(), HttpStatus.OK);
