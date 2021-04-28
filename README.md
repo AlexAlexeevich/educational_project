@@ -25,7 +25,7 @@
 
 #### Запросы:
 
-1. api/organization/list<br>
+##### 1. api/organization/list<br>
    method: POST<br>
    
    In (фильтр):
@@ -49,7 +49,7 @@
 
 ```
 
-2. api/organization/{id}<br>
+##### 2. api/organization/{id}<br>
  method: GET<br>
  
  Out:
@@ -65,7 +65,7 @@
   “isActive”:”true”
 }
 ```
-3. api/organization/update<br>
+##### 3. api/organization/update<br>
  method: POST<br>
  
  In:
@@ -88,7 +88,7 @@
 }
 ```
 
-4. api/organization/save<br>
+##### 4. api/organization/save<br>
  method: POST<br>
  
  In
@@ -104,7 +104,7 @@
 }
 ```
 
-5. api/office/list<br>
+##### 5. api/office/list<br>
  method: POST<br>
  
  In (фильтр):
@@ -128,7 +128,7 @@
 ]
 ```
 
-6. api/office/{id}<br>
+##### 6. api/office/{id}<br>
 method:GET<br>
 
 Out:
@@ -142,7 +142,7 @@ Out:
 }
 ```
 
-7. api/office/update<br>
+##### 7. api/office/update<br>
  method: POST<br>
  
 In:
@@ -163,7 +163,7 @@ In:
 }
 ```
 
-8. api/office/save<br>
+##### 8. api/office/save<br>
  method: POST<br>
  
 In:
@@ -184,7 +184,7 @@ In:
 }
 ```
 
-9. api/user/list<br>
+##### 9. api/user/list<br>
 mathod: POST
 
   In (фильтр):
@@ -211,7 +211,7 @@ mathod: POST
 }
 ```
 
-10. api/user/{id}<br>
+##### 10. api/user/{id}<br>
 method:GET<br>
 
 Out:
@@ -232,7 +232,7 @@ Out:
 }
 ```
 
-11. api/user/update<br>
+##### 11. api/user/update<br>
 method: POST<br>
 
 In:
@@ -260,7 +260,7 @@ Out:
 }
 ```
 
-12. api/user/save<br>
+##### 12. api/user/save<br>
 method: POST<br>
 
 In:
@@ -281,8 +281,8 @@ In:
 }
 ```
 
-Справочники:<br>
-api/docs<br>
+##### Справочники:<br>
+##### api/docs<br>
 ```
 [
   {
@@ -293,7 +293,7 @@ api/docs<br>
 ]
 ```
 
-api/countries<br>
+##### api/countries<br>
 ```
 [
   {
