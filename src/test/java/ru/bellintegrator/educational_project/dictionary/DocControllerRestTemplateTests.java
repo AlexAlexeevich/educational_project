@@ -1,19 +1,21 @@
 package ru.bellintegrator.educational_project.dictionary;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.bellintegrator.educational_project.aop.dto.ResultDto;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DocControllerTestRestTemplate {
+public class DocControllerRestTemplateTests {
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -23,7 +25,7 @@ public class DocControllerTestRestTemplate {
         ResponseEntity<ResultDto> result = this.restTemplate
                 .postForEntity("/api/docs", null, ResultDto.class);
 
-        Assert.assertEquals(result.getStatusCode(), HttpStatus.OK);
-        Assert.assertNotNull(result);
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertNotNull(result);
     }
 }

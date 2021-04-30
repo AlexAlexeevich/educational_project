@@ -1,14 +1,13 @@
 package ru.bellintegrator.educational_project.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.bellintegrator.educational_project.aop.dto.ResultDto;
 import ru.bellintegrator.educational_project.aop.dto.ResultDtoForVoid;
 import ru.bellintegrator.educational_project.user.dto.*;
@@ -17,9 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserControllerTestRestTemplate {
+public class UserControllerRestTemplateTests {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -38,7 +39,7 @@ public class UserControllerTestRestTemplate {
         String extended = new ObjectMapper().writeValueAsString(Objects.requireNonNull(result.getBody()).getData());
         String actual = new ObjectMapper().writeValueAsString(list);
 
-        Assert.assertEquals(extended, actual);
+        assertEquals(extended, actual);
     }
 
     @Test
@@ -52,7 +53,7 @@ public class UserControllerTestRestTemplate {
         String expected = new ObjectMapper().writeValueAsString(Objects.requireNonNull(result.getBody()).getData());
         String actual = new ObjectMapper().writeValueAsString(userDtoForSaveResponse);
 
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -67,7 +68,7 @@ public class UserControllerTestRestTemplate {
         System.out.println(result);
         String expected = new ObjectMapper().writeValueAsString(Objects.requireNonNull(result.getBody()));
         String actual = new ObjectMapper().writeValueAsString(resultDto);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         UserDtoForSaveResponse userDtoForSaveResponse = new UserDtoForSaveResponse(2, "test first name", "test second name", "test middle name",
                 "test position", "test phone", "Паспорт гражданина РФ", "0000", null, "Российская Федерация", "643", false);
@@ -75,7 +76,7 @@ public class UserControllerTestRestTemplate {
 
         String expected1 = new ObjectMapper().writeValueAsString(Objects.requireNonNull(resultFromRepository.getBody()).getData());
         String actual1 = new ObjectMapper().writeValueAsString(userDtoForSaveResponse);
-        Assert.assertEquals(expected1, actual1);
+        assertEquals(expected1, actual1);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class UserControllerTestRestTemplate {
 
         String expected = new ObjectMapper().writeValueAsString(Objects.requireNonNull(result.getBody()));
         String actual = new ObjectMapper().writeValueAsString(resultDto);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         UserDtoForSaveResponse userDtoForSaveResponse = new UserDtoForSaveResponse(5, "test first name", "test second name", "test middle name",
                 "test position", "test phone", "Паспорт гражданина РФ", "9999", null, "Российская Федерация", "643", false);
@@ -98,6 +99,6 @@ public class UserControllerTestRestTemplate {
         String expected1 = new ObjectMapper().writeValueAsString(Objects.requireNonNull(resultFromRepository.getBody()).getData());
         String actual1 = new ObjectMapper().writeValueAsString(userDtoForSaveResponse);
 
-        Assert.assertEquals(expected1, actual1);
+        assertEquals(expected1, actual1);
     }
 }
